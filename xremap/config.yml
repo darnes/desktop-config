@@ -1,0 +1,13 @@
+modmap:
+  - name: Global
+    remap:
+      KEY_LEFTALT: KEY_LEFTCTRL
+      KEY_LEFTCTRL: KEY_LEFTMETA
+      KEY_LEFTMETA: KEY_LEFTALT
+      # Alt_L: Ctrl_L
+      # Ctrl_L: KEY_LEFTMETA
+      # KEY_LEFTMETA: Ctrl_L
+      # following works
+      # KEY_UP: KEY_DOWN
+      # KEY_DOWN: KEY_UP
+
