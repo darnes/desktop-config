@@ -99,7 +99,7 @@
   users.users.username = {
     isNormalUser = true;
     description = "username";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
       vscode
@@ -107,13 +107,17 @@
   };
 
   # Enable common container config files in /etc/containers
+  # virtualisation.docker.enable = true;
   virtualisation.containers.enable = true;
   virtualisation = {
+    docker = {
+      enable = true;
+    };
     podman = {
       enable = true;
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
+      # dockerCompat = true;
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.settings.dns_enabled = true;
