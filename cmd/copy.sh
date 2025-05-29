@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+rm -rf ./waybar
 echo "copying files..."
 
 # cp /etc/nixos/configuration.nix ./
