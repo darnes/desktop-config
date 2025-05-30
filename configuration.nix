@@ -103,6 +103,7 @@
     packages = with pkgs; [
     #  thunderbird
       vscode
+      ripgrep
     ];
   };
 
