@@ -1,0 +1,83 @@
+{
+  "explorer.confirmDelete": false,
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+  "editor.tabSize": 2,
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+  },
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never"
+    }
+  },
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.useAliasesForRenames": false,
+  "black-formatter.args": [
+    "--skip-string-normalization",
+    "--line-length",
+    "100"
+  ],
+  "editor.formatOnSave": true,
+  "cSpell.userWords": [
+    "auths",
+    "boto",
+    "bson",
+    "Codegen",
+    "corsheaders",
+    "datagram",
+    "Datagrid",
+    "dateutil",
+    "excepthook",
+    "Expenser",
+    "Ginzap",
+    "gorm",
+    "Infow",
+    "keygrip",
+    "loglevel",
+    "luxon",
+    "opentelemetry",
+    "Organisation",
+    "paypalrestsdk",
+    "pino",
+    "presigner",
+    "pydantic",
+    "pymongo",
+    "relativedelta",
+    "Requireable",
+    "sandp",
+    "seafile",
+    "simplejwt",
+    "typedorm",
+    "ueoname",
+    "unperfection",
+    "uuidv",
+    "viewsets",
+    "VITE"
+  ],
+  "files.autoSave": "afterDelay",
+  "explorer.autoRevealExclude": {
+    "**/node_modules": false,
+    "**/bower_components": true
+  },
+  "terminal.integrated.fontFamily": "\"MesloLGS NF\", monospace",
+  "python.analysis.typeCheckingMode": "basic",
+  "redhat.telemetry.enabled": false,
+  "mdb.confirmRunAll": false,
+  "git.openRepositoryInParentFolders": "never",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true
+  }
+}
