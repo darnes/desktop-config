@@ -18,6 +18,32 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
+  
+  # following added for proper wake up from hibernation
+  boot.resumeDevice = "/dev/disk/by-uuid/855dc0aa-2d3c-4f5b-8333-197b977e83bb";
+  powerManagement.enable = true;
+  
+  services.power-profiles-daemon.enable = true;
+
+  # action on closing lid 
+  # options: poweroff/hibernate/suspend-then-hibernate ... 
+  # https://search.nixos.org/options?channel=25.05&show=services.logind.lidSwitch&from=0&size=50&sort=relevance&type=packages&query=lidSwitch
+  services.logind.lidSwitch = "suspend-then-hibernate";
+  # Hibernate on power button pressed
+  services.logind.powerKey = "hibernate";
+  services.logind.powerKeyLongPress = "poweroff";
+
+  # Suspend first
+  boot.kernelParams = ["mem_sleep_default=deep"];
+
+  # Define time delay for hibernation
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+    SuspendState=mem
+  '';
+
+  # end of hibernation setup
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -112,7 +138,14 @@
     packages = with pkgs; [
     #  thunderbird
       vscode
-      ripgrep
+      ripgrep # nvchad deps
+      # cc
+      gcc
+      clang 
+      cl
+      unzip
+      zip
+      zig # end of nvchad deps
     ];
   };
 
@@ -147,6 +180,8 @@
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
     ly
+    pciutils
+    xfce.thunar
     killall
     htop
     vim
