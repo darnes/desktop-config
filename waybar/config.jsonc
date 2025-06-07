@@ -6,7 +6,7 @@
 
     "modules-left": ["power-profiles-daemon", "hyprland/workspaces", "cpu", "memory", "temperature"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["clock", "wireplumber", "battery", "network", "bluetooth", "tray"],
+    "modules-right": ["clock", "wireplumber", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "<span size='larger'>{icon}</span>",

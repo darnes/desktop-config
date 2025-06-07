@@ -130,6 +130,17 @@
       # Group = "users";
     };
   };
+  systemd.services.for-hibernate = {
+    enable = true;
+    wantedBy = ["hibernate.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.kmod}/bin/rmmod intel_hid";
+      ExecStop = "${pkgs.kmod}/bin/modprobe intel_hid";
+      RemainAfterExit = true;
+    };
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.username = {
     isNormalUser = true;
@@ -170,6 +181,8 @@
   # Install firefox.
   programs.firefox.enable = true;
   programs.ssh.startAgent = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -179,6 +192,10 @@
   environment.systemPackages = with pkgs; [
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
+    brightnessctl
+    blueman
+    hyprlock
+    mongosh # not installed yet
     ly
     pciutils
     xfce.thunar
