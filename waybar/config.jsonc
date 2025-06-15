@@ -6,7 +6,7 @@
 
     "modules-left": ["power-profiles-daemon", "hyprland/workspaces", "cpu", "memory", "temperature"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["clock", "wireplumber", "battery", "tray"],
+    "modules-right": ["clock", "wireplumber", "backlight", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "<span size='larger'>{icon}</span>",
@@ -26,7 +26,7 @@
         "format": "   {usage}%"
     }, 
     "clock": {
-        "format": "{:%H:%M (%a, %d.%m) }"
+        "format": "{:%H:%M (%a, %d/%m) }"
     },
 
     "wireplumber": {
@@ -53,18 +53,6 @@
     "temperature": {
         "format": " {temperatureC}°C"
     },
-
-    "network": {
-        "format": "",
-        "format-ethernet": "\udb83\udc9d",
-        "format-wifi": "{icon}",
-        "format-disconnected": "\udb83\udc9c",
-        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
-        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-        "tooltip-format-ethernet": "{ifname}",
-        "tooltip-format-disconnected": "Disconnected",
-	"on-click": "nm-connection-editor"
-    },
     "power-profiles-daemon": {                                                                           
       "format": "{icon}",                                                                                
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",                                    
@@ -78,19 +66,6 @@
         "power-saver": ""                                                                               
       }                                                                                                  
     },
-    "bluetooth": {
-        "format": "\udb80\udcaf",
-        "format-disabled": "\udb80\udcb2",
-        "format-connected": "\udb80\udcb1",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
-    },
-
-    "hyprland/language": {
-        "format": "{short}"
-    },
-
     "tray": {
         "icon-size": 16,
         "spacing": 16

@@ -192,6 +192,7 @@
   environment.systemPackages = with pkgs; [
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
+    slack
     brightnessctl
     blueman
     hyprlock
@@ -227,7 +228,8 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 #  wget
   ];
-  
+
+
 #  fonts.packages = with pkgs; [
 #    #  nerdfonts
 #    nerd-fonts.fira-code
@@ -259,7 +261,7 @@ fonts = {
   programs.hyprland.enable = true;
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
+    NIXOS_OZONE_WL = "1"; # required for slack but for something else as well
   };
 
   # Enable common container config files in /etc/containers

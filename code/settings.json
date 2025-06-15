@@ -1,0 +1,14 @@
+{
+    "editor.fontSize": 13,
+    "editor.codeLensFontSize": 11,
+    "editor.minimap.sectionHeaderFontSize": 11,
+    "window.zoomLevel": 1,
+    "editor.formatOnSave": true,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/node_modules/**": true
+    },
+    "files.autoSave": "afterDelay",
+    "editor.tabSize": 2,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+}

@@ -15,3 +15,8 @@ cp -r ~/.config/xremap ./
 
 cp ~/.config/starship.toml ./
 
+# code
+
+cp ~/.config/Code/User/settings.json ./code/
+cp ~/.config/Code/User/keybindings.json ./code/
+
