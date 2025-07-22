@@ -148,7 +148,16 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
+      virtualenv
+      python313
+      python313Packages.pip
+
+      python3Full # provides 3.12
+      python312Packages.pip
+
+      stripe-cli
       vscode
+      libreoffice # office package
       ripgrep # nvchad deps
       # cc
       gcc
@@ -192,6 +201,7 @@
   environment.systemPackages = with pkgs; [
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
+    swayfx
     slack
     brightnessctl
     blueman
@@ -229,6 +239,12 @@
 #  wget
   ];
 
+# sway config
+ programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+    package = pkgs.swayfx;
+};
 
 #  fonts.packages = with pkgs; [
 #    #  nerdfonts
@@ -262,6 +278,9 @@ fonts = {
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1"; # required for slack but for something else as well
+    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+    
+    # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath buildInputs}:$LD_LIBRARY_PATH"
   };
 
   # Enable common container config files in /etc/containers
