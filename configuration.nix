@@ -213,6 +213,7 @@
     slack
     brightnessctl
     blueman
+    hyprpaper
     hyprlock
     mongosh # not installed yet
     ly
