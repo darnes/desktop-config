@@ -1,13 +1,22 @@
 modmap:
-  - name: Global
+  #- name: Global
+  #  remap:
+  #    KEY_LEFTALT: KEY_LEFTCTRL
+  #    KEY_LEFTCTRL: KEY_LEFTMETA
+  #    KEY_LEFTMETA: KEY_LEFTALT
+
+  - name: "Built In Keyboard"
+    device:
+      only: "AT Translated Set 2 keyboard"
     remap:
       KEY_LEFTALT: KEY_LEFTCTRL
       KEY_LEFTCTRL: KEY_LEFTMETA
       KEY_LEFTMETA: KEY_LEFTALT
-      # Alt_L: Ctrl_L
-      # Ctrl_L: KEY_LEFTMETA
-      # KEY_LEFTMETA: Ctrl_L
-      # following works
-      # KEY_UP: KEY_DOWN
-      # KEY_DOWN: KEY_UP
 
+  - name: "KINESIS"
+    device:
+      only: "KINESIS CORPORATION KB800HM Kinesis Freestyle2 for Mac"
+    remap:
+      KEY_LEFTMETA: KEY_LEFTCTRL
+      KEY_LEFTCTRL: KEY_LEFTMETA
+#      KEY_LEFTMETA: KEY_LEFTALT

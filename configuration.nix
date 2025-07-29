@@ -33,6 +33,7 @@
   services.logind.powerKey = "hibernate";
   services.logind.powerKeyLongPress = "poweroff";
 
+  services.tailscale.enable = true;
   # Suspend first
   boot.kernelParams = ["mem_sleep_default=deep"];
 
@@ -148,6 +149,9 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     #  thunderbird
+      zsh
+      jq
+
       virtualenv
       python313
       python313Packages.pip
@@ -201,6 +205,10 @@
   environment.systemPackages = with pkgs; [
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
+    tailscale
+    kubernetes-helm
+    kustomize
+    kubectl 
     swayfx
     slack
     brightnessctl
@@ -237,6 +245,7 @@
     #podman-compose # start group of containers for dev
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 #  wget
+    cifs-utils # samba-mount
   ];
 
 # sway config
@@ -314,6 +323,64 @@ fonts = {
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  services.openssh = {
+      enable = true;
+      settings = {
+        PasswordAuthentication = true;
+	AllowUsers = null;
+	UseDns = true;
+	X11Forwarding = false;
+	PermitRootLogin = "yes";
+      };
+  };
+  networking.extraHosts =
+  ''
+    192.168.1.127 rp4
+    192.168.1.107 s
+  '';
+
+   # For mount.cifs, required unless domain name resolution is not needed.
+  # environment.systemPackages = [ pkgs.cifs-utils ];
+  fileSystems."/mnt/share" = {
+    device = "//192.168.1.107/public";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets"];
+  };
+ 
+  environment.pathsToLink = [ "/share/zsh" ];
+  users.defaultUserShell = pkgs.zsh; 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    
+    #zplug = {
+    #  enable = true;
+    #  plugins = [
+    #    { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
+    #    # { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
+    #  ];
+    #};
+    shellAliases = {
+    #  # ll = "ls -l";
+    #  update = "sudo nixos-rebuild switch";
+    };
+    # history.size = 10000;
+  };
+  #fileSystems."/mnt/share-private" = {
+  #  device = "//192.168.1.107/private";
+  #  fsType = "cifs";
+  #  options = let
+  #    # this line prevents hanging on network split
+  #    automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+
+  #  in ["${automount_opts},credentials=/etc/nixos/smb-secrets"];
+  # };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
