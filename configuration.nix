@@ -44,6 +44,7 @@
   '';
 
   # end of hibernation setup
+  services.hardware.bolt.enable = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -177,18 +178,22 @@
   # virtualisation.docker.enable = true;
   virtualisation.containers.enable = true;
   virtualisation = {
-    docker = {
-      enable = true;
-    };
-    podman = {
-      enable = true;
+    # following is tested and works
+    # docker = {
+    #  enable = true;
+    #  extraOptions = ''
+    #    --insecure-registry 192.168.1.127:32000
+    #  '';
+    # };
+    #podman = {
+    #  enable = true;
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       # dockerCompat = true;
 
       # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
+      #defaultNetwork.settings.dns_enabled = true;
+    #};
   };
 
   # Install firefox.
@@ -205,6 +210,7 @@
   environment.systemPackages = with pkgs; [
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
+    fzf # fuzzy search in current dir and in shell history.. handy tool
     tailscale
     kubernetes-helm
     kustomize
@@ -324,16 +330,17 @@ fonts = {
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  services.openssh = {
-      enable = true;
-      settings = {
-        PasswordAuthentication = true;
-	AllowUsers = null;
-	UseDns = true;
-	X11Forwarding = false;
-	PermitRootLogin = "yes";
-      };
-  };
+  # following is tested and works
+  # services.openssh = {
+  #    enable = true;
+  #    settings = {
+  #      PasswordAuthentication = true;
+  #	AllowUsers = null;
+  #	UseDns = true;
+  #	X11Forwarding = false;
+  #	PermitRootLogin = "yes";
+  #    };
+  # };
   networking.extraHosts =
   ''
     192.168.1.127 rp4
@@ -357,8 +364,20 @@ fonts = {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestions.enable = true;
+    
+    # dotDir = "/home/username/.zshrc";
+    # enableAutosuggestions = true;
+    
+    autosuggestions = {
+      enable = true;
+      strategy = ["completion" "history"];
+    };
+    # enables search based on entered value
+    # historySubstringSearch.enable = true;
+    interactiveShellInit = "source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh";
+
     syntaxHighlighting.enable = true;
+   
     
     #zplug = {
     #  enable = true;

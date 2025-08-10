@@ -12,4 +12,5 @@
     "editor.tabSize": 2,
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "diffEditor.codeLens": true,
+    "geminicodeassist.inlineSuggestions.enableAuto": false,
 }

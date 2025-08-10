@@ -8,6 +8,9 @@ echo "copying files..."
 #sed 's/${USER}/username/g' /etc/nixos/configuration.nix 
 sed 's/'"$USER"'/username/g' /etc/nixos/configuration.nix> configuration.nix  
 
+# zshrc 
+cp ~/.zshrc ./zshrc
+
 cp -r ~/.config/hypr ./
 cp -r ~/.config/waybar ./
 cp -r ~/.config/kitty ./
