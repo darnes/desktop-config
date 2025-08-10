@@ -20,9 +20,9 @@ plugins=( zsh-history-substring-search up-line-or-beginning-search down-line-or-
 # alias current_branch='git rev-parse --abbrev-ref HEAD'
 # alias git_current_branch='current_branch'
 # alias ggp='git push origin $(current_branch)'
-alias ggpush='git push origin "$(git_current_branch)"'
+alias ggpush='git push origin "$(git branch --show-current)"'
 # alias ggl='git pull origin $(current_branch)'
-alias ggpull='git pull origin "$(git_current_branch)"'
+alias ggpull='git pull origin "$(git branch --show-current)"'
 
 alias k=kubectl
 
