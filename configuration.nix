@@ -175,16 +175,15 @@
   };
 
   # Enable common container config files in /etc/containers
-  # virtualisation.docker.enable = true;
   virtualisation.containers.enable = true;
   virtualisation = {
     # following is tested and works
-    # docker = {
-    #  enable = true;
-    #  extraOptions = ''
-    #    --insecure-registry 192.168.1.127:32000
-    #  '';
-    # };
+    docker = {
+      enable = true;
+      extraOptions = ''
+        --insecure-registry home-server:6443 --insecure-registry 192.168.1.107:5000
+      '';
+    };
     #podman = {
     #  enable = true;
 
@@ -215,6 +214,7 @@
     kubernetes-helm
     kustomize
     kubectl 
+    kubectx
     swayfx
     slack
     brightnessctl
