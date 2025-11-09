@@ -13,4 +13,14 @@
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "diffEditor.codeLens": true,
     "geminicodeassist.inlineSuggestions.enableAuto": false,
+    "explorer.confirmDelete": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports.ruff": "explicit",
+            "editor.formatOnSave": "explicit"
+        }
+    }
+    
 }

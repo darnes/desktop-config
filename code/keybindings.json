@@ -27,5 +27,43 @@
   {
     "key": "ctrl+k l",
     "command": "python.execInTerminal"
-  }
+  },
+  {
+    "key": "alt+right",
+    "command": "cursorWordEndRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+left",
+    "command": "cursorWordEndLeft",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "alt+shift+right",
+    "command": "cursorWordEndRightSelect",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+shift+left",
+    "command": "cursorWordEndLeftSelect",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+right",
+    "command": "cursorLineEnd"
+  },
+  {
+    "key": "ctrl+left",
+    "command": "cursorLineStart"
+  },
+  {
+    "key": "ctrl+shift+right",
+    "when": "editorTextFocus",
+    "command": "cursorLineEndSelect"
+  },
+  {
+    "key": "ctrl+shift+left",
+    "when": "editorTextFocus",
+    "command": "cursorLineStartSelect"
+  },
 ]

@@ -171,6 +171,11 @@
       unzip
       zip
       zig # end of nvchad deps
+      # network and general debug
+      traceroute
+      lm_sensors
+      stress
+
     ];
   };
 
@@ -215,6 +220,7 @@
     kustomize
     kubectl 
     kubectx
+    k9s
     swayfx
     slack
     brightnessctl
@@ -344,8 +350,12 @@ fonts = {
   networking.extraHosts =
   ''
     192.168.1.127 rp4
-    192.168.1.107 s
-  '';
+    # 192.168.1.107 s
+    100.119.51.107 s vlogs.local vmselect.local grafana.local 
+    # 192.168.1.107 vlogs.local
+    # 192.168.1.107 vmselect.local
+    # 192.168.1.107 grafana.local
+'';
 
    # For mount.cifs, required unless domain name resolution is not needed.
   # environment.systemPackages = [ pkgs.cifs-utils ];

@@ -7,7 +7,7 @@ proper cleanup described [here](https://nixos.org/guides/nix-pills/11-garbage-co
 
 sudo nix-channel --update
 sudo nixos-rebuild switch
-
+sudo nixos-rebuild switch --upgrade
 ```
 
 ```sh
