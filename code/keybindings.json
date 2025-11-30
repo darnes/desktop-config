@@ -35,7 +35,7 @@
   },
   {
     "key": "alt+left",
-    "command": "cursorWordEndLeft",
+    "command": "cursorWordStartLeft",
     "when": "textInputFocus"
   },
   {
@@ -45,7 +45,7 @@
   },
   {
     "key": "alt+shift+left",
-    "command": "cursorWordEndLeftSelect",
+    "command": "cursorWordStartLeftSelect",
     "when": "editorTextFocus"
   },
   {
@@ -54,7 +54,7 @@
   },
   {
     "key": "ctrl+left",
-    "command": "cursorLineStart"
+    "command": "cursorHome"
   },
   {
     "key": "ctrl+shift+right",
@@ -64,6 +64,6 @@
   {
     "key": "ctrl+shift+left",
     "when": "editorTextFocus",
-    "command": "cursorLineStartSelect"
+    "command": "cursorHomeSelect"
   },
 ]

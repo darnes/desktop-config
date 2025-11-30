@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      /home/username/proj/desktop-setup/xremap/default.nix
     ];
 
   # Bootloader.
@@ -117,21 +118,49 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-  systemd.services.xremap = {
-    enable = true;
-    wantedBy = [ "multi-user.target" ];
-    # after = [ "network-online.target" ];
-    path = [ pkgs.xremap ];
-    restartIfChanged = true;
-    serviceConfig = {
-      # Environment = "RUST_LOG=debug";
-      Restart = "on-failure";
-      ExecStart = "${pkgs.xremap}/bin/xremap /home/username/.config/xremap/config.yml";
-      # DynamicUser = true;
-      # User = "username";
-      # Group = "users";
-    };
-  };
+  # users.extraUsers.ollama = {
+  #   isSystemUser = true;
+  #   group = "ollama";
+  #   home = "/var/lib/ollama"; # Or another suitable home directory
+  #   shell = "${pkgs.bash}/bin/bash"; # Or a restricted shell like "${pkgs.bash}/bin/rbash"
+  # };
+  # users.groups.ollama = {};
+
+  # systemd.services.ollama = {
+  #   enable = true;
+  #   wantedBy = [ "multi-user.target" ];
+  #   # after = [ "network-online.target" ];
+  #   path = [ pkgs.ollama ];
+  #   restartIfChanged = false;
+  #   serviceConfig = {
+  #     StateDirectory = "ollama";
+  #     Restart = "on-failure";
+  #     ExecStart = "${pkgs.ollama}/bin/ollama serve";
+  #     DynamicUser = false;
+  #     User = "ollama";
+  #     Group = "ollama";
+  #   };
+  # };
+  # check 
+  # journalctl -u ollama
+  
+  services.xremap.enable = true;
+
+  # systemd.services.xremap = {
+  #   enable = true;
+  #   wantedBy = [ "multi-user.target" ];
+  #   # after = [ "network-online.target" ];
+  #   path = [ pkgs.xremap ];
+  #   restartIfChanged = true;
+  #   serviceConfig = {
+  #     # Environment = "RUST_LOG=debug";
+  #     Restart = "on-failure";
+  #     ExecStart = "${pkgs.xremap}/bin/xremap /home/username/.config/xremap/config.yml";
+  #     # DynamicUser = true;
+  #     # User = "username";
+  #     # Group = "users";
+  #   };
+  # };
   systemd.services.for-hibernate = {
     enable = true;
     wantedBy = ["hibernate.target"];
@@ -149,6 +178,8 @@
     description = "username";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
+      # llm 
+      ollama
     #  thunderbird
       zsh
       jq
@@ -351,7 +382,7 @@ fonts = {
   ''
     192.168.1.127 rp4
     # 192.168.1.107 s
-    100.119.51.107 s vlogs.local vmselect.local grafana.local 
+    100.119.51.107 s vlogs.local vmselect.local grafana.local questdb.local webui.local
     # 192.168.1.107 vlogs.local
     # 192.168.1.107 vmselect.local
     # 192.168.1.107 grafana.local

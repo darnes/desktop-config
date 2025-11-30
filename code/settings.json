@@ -21,6 +21,10 @@
             "source.organizeImports.ruff": "explicit",
             "editor.formatOnSave": "explicit"
         }
+    },
+    "workbench.editor.empty.hint": "hidden",
+    "editor.smartHome": false,
+    "github.copilot.enable": {
+        "*": false
     }
-    
 }
