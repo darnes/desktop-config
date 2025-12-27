@@ -17,6 +17,8 @@
     "security.workspace.trust.untrustedFiles": "open",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.wordWrapColumn": 150, // just fits in the laptop screen
+        // "editor.wrappingStrategy": "advanced",
         "editor.codeActionsOnSave": {
             "source.organizeImports.ruff": "explicit",
             "editor.formatOnSave": "explicit"
@@ -26,5 +28,10 @@
     "editor.smartHome": false,
     "github.copilot.enable": {
         "*": false
-    }
+    },
+    "black-formatter.args": [
+        "--line-length",
+        "150"
+    ],
+    "editor.wordWrapColumn": 150,
 }

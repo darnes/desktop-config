@@ -29,15 +29,22 @@
   # action on closing lid 
   # options: poweroff/hibernate/suspend-then-hibernate ... 
   # https://search.nixos.org/options?channel=25.05&show=services.logind.lidSwitch&from=0&size=50&sort=relevance&type=packages&query=lidSwitch
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  # services.logind.lidSwitch = "suspend-then-hibernate";
+  
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
   # Hibernate on power button pressed
-  services.logind.powerKey = "hibernate";
-  services.logind.powerKeyLongPress = "poweroff";
-
+  
+  # services.logind.powerKey = "hibernate";
+  services.logind.settings.Login.HandlePowerKey = "hibernate";
+  # services.logind.powerKeyLongPress = "poweroff";
+  services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
   services.tailscale.enable = true;
   # Suspend first
   boot.kernelParams = ["mem_sleep_default=deep"];
-
+  # battery management
+  # services.tlp = {
+  #  enable = true;
+  # };
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
@@ -55,7 +62,9 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  # networking.nameservers
+  # networking.nameservers = ["100.119.51.107:30530"];  # doesn't do what I do expect
+  
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
 
@@ -80,13 +89,17 @@
   # services.xserver.displayManager.ly.enable = true;
  
  # Enable the GNOME Desktop Environment.
- # services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = false;
+  #services.desktopManager.gnome.enable = true;
 
-  services.xserver.displayManager = {
+  services.displayManager = {
     gdm.enable = false;
-    lightdm.enable = false;
+    # lightdm.enable = false;
   };
+
+  #services.xserver.displayManager = {
+  #  lightdm.enable = false;
+  # };
 
   services.displayManager.ly.enable = true;
 
@@ -102,6 +115,9 @@
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.pki.certificates = [
+    (builtins.readFile ./ca.pem)
+  ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -179,26 +195,35 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       # llm 
-      ollama
+      # ollama
     #  thunderbird
+      openssl
+      dig
       zsh
       jq
 
       virtualenv
+      uv # claim to be quick pip replacement, build with rust
       python313
       python313Packages.pip
 
-      python3Full # provides 3.12
-      python312Packages.pip
+      # python3Full # provides 3.12
+      # python312Packages.pip
 
       stripe-cli
       vscode
       libreoffice # office package
       ripgrep # nvchad deps
       # cc
+      # since v 50 required by hyprland
       gcc
-      clang 
-      cl
+      libgcc
+      gnumake
+      cmake
+      extra-cmake-modules
+
+      # clang 
+      # cl
       unzip
       zip
       zig # end of nvchad deps
@@ -217,7 +242,7 @@
     docker = {
       enable = true;
       extraOptions = ''
-        --insecure-registry home-server:6443 --insecure-registry 192.168.1.107:5000
+        --insecure-registry home-server:6443 --insecure-registry harbor.local
       '';
     };
     #podman = {
@@ -233,8 +258,8 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-  programs.ssh.startAgent = true;
-  hardware.bluetooth.enable = true;
+  # programs.ssh.startAgent = true;
+  hardware.bluetooth.enable = true; # should be on bu default with 25.11
   services.blueman.enable = true;
 
   # Allow unfree packages
@@ -243,6 +268,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # office stuff
+    zoom-us
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
     # lightdm
     fzf # fuzzy search in current dir and in shell history.. handy tool
@@ -252,7 +279,7 @@
     kubectl 
     kubectx
     k9s
-    swayfx
+    # swayfx
     slack
     brightnessctl
     blueman
@@ -327,12 +354,15 @@ fonts = {
 };
 
 # fonts.fontconfig.antialias = false;
-  programs.hyprland.enable = true;
+  programs.hyprland= {
+    enable = true;
+    # withUWSM = true;
+  };
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1"; # required for slack but for something else as well
-    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
-    
+    # required for numpy - not really
+    # LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
     # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath buildInputs}:$LD_LIBRARY_PATH"
   };
 
@@ -380,9 +410,9 @@ fonts = {
   # };
   networking.extraHosts =
   ''
-    192.168.1.127 rp4
+    # 192.168.1.127 rp4
     # 192.168.1.107 s
-    100.119.51.107 s vlogs.local vmselect.local grafana.local questdb.local webui.local
+    # 100.119.51.107 s vlogs.local vmselect.local grafana.local questdb.local harbor.local webui.local
     # 192.168.1.107 vlogs.local
     # 192.168.1.107 vmselect.local
     # 192.168.1.107 grafana.local

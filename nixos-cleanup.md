@@ -16,3 +16,11 @@ nix-env -u --always
 rm /nix/var/nix/gcroots/auto/*
 nix-collect-garbage -d
 ```
+
+
+one-liner:
+```sh
+
+ sudo nix-channel --update && sudo nixos-rebuild switch --upgrade && sudo rm -rf /nix/var/nix/gcroots/auto/* && sudo nix-collect-garbage -d && sudo nixos-rebuild switch
+
+```

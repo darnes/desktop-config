@@ -14,8 +14,10 @@ setopt SHARE_HISTORY        # Shares history between multiple active Zsh session
 # keys are added manually in ~/.ssh/config
 #
 # eval "$(starship init bash)"
+
 eval "$(starship init zsh)"
-plugins=( zsh-history-substring-search up-line-or-beginning-search down-line-or-beginning-search)
+
+plugins=( zsh-history-substring-search ) # up-line-or-beginning-search down-line-or-beginning-search)
 
 # alias current_branch='git rev-parse --abbrev-ref HEAD'
 # alias git_current_branch='current_branch'
@@ -27,6 +29,14 @@ alias ggpull='git pull origin "$(git branch --show-current)"'
 alias k=kubectl
 
 bindkey '^k' autosuggest-accept
+# bindkey -r '^[[A'
+# bindkey -r '^[[B'
+
+# bindkey '^^[[A' history-substring-search-up 
+# bindkey '^^[[B' history-beginning-search-forward
+
+bindkey ';5A' history-substring-search-up
+bindkey ';5B' history-beginning-search-forward
 
 # following doesn't really work
 # autoload -U up-line-or-beginning-search
