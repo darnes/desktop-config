@@ -194,6 +194,7 @@
     description = "username";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
+      
       # llm 
       # ollama
     #  thunderbird
@@ -268,6 +269,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # screenshot - maker
+    pkgs.sway-contrib.grimshot
+
     # office stuff
     zoom-us
     # emptty # isn't confgured https://github.com/NixOS/nixpkgs/issues/220022 can re-iterate if will have time later
