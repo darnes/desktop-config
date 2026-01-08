@@ -9,7 +9,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       /home/username/proj/desktop-setup/xremap/default.nix
+      /home/username/proj/desktop-setup/obs/configuration.nix
     ];
+  
+  hardware.graphics.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa-demos # For tools like glxinfo, glxgears
+    # Add other specific drivers or utilities here if needed
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -53,6 +60,15 @@
 
   # end of hibernation setup
   services.hardware.bolt.enable = true;
+  
+  # programs.dconf.profiles.user.databases = [{
+  #  settings = {
+  #    "org/gnome/desktop/interface" = {
+  #	color-scheme = "prefer-dark";
+  #	icon-theme = "Papirus-Dark";
+  #     };
+  #  };
+  # }];
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -88,9 +104,9 @@
   # services.xserver.displayManager.emptty.enable = true;
   # services.xserver.displayManager.ly.enable = true;
  
- # Enable the GNOME Desktop Environment.
+  # Enable the GNOME Desktop Environment.
   # services.xserver.displayManager.gdm.enable = false;
-  #services.desktopManager.gnome.enable = true;
+  # services.desktopManager.gnome.enable = true;
 
   services.displayManager = {
     gdm.enable = false;
@@ -262,13 +278,24 @@
   # programs.ssh.startAgent = true;
   hardware.bluetooth.enable = true; # should be on bu default with 25.11
   services.blueman.enable = true;
-
+  # screen recorder
+  programs.gpu-screen-recorder.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    
+    # Thunar icons 
+    adwaita-icon-theme  # Standard GNOME icons
+    hicolor-icon-theme   # Required for many app icons
+
+    # need to play video with something
+    pkgs.vlc
+    # screen recorder GUI
+    gpu-screen-recorder-gtk # GUI app
+
     # screenshot - maker
     pkgs.sway-contrib.grimshot
 
