@@ -12,18 +12,35 @@
       /home/username/proj/desktop-setup/obs/configuration.nix
     ];
   
-  hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [
-    mesa-demos # For tools like glxinfo, glxgears
-    # Add other specific drivers or utilities here if needed
-  ];
-
+  # hardware.graphics.enable = true;
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
+  # Use latest kernel. disabling as nix loads debug package for current kernel
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelpackages = pkgs.linuxkernel.packages.linux_6_18; 
+  # so perf could recofnise function names
+  environment.enableDebugInfo = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  # boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_19;
+
+  # so perf could recofnise function names
+  # Enable debug symbols for the kernel
+  # seems like it rebuilds the kernel
+  #boot.kernelPatches = [
+  # {
+  #    name = "enable-debug-info";
+  #    patch = null;
+  #    extraConfig = ''
+  #      DEBUG_INFO y
+  #      DEBUG_INFO_DWARF5 y
+  #    '';
+  #  }
+  # ];
+  boot.kernelPatches = [];
+
 
   networking.hostName = "nixos"; # Define your hostname.
   
@@ -100,7 +117,21 @@
   };
   
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = false;
+  # services.xserver.videoDrivers = [ "amdgpu" ]; # fix for nix-options to stop complaining
+  # Enable OpenGL/Graphics
+  hardware.graphics = {
+    enable = true;
+    # enable32Bit = true; # For Steam/32-bit apps
+  };
+
+  hardware.graphics.extraPackages = with pkgs; [
+    # mesa-demos # For tools like glxinfo, glxgears
+    # Add other specific drivers or utilities here if needed
+  ];
+
+
+
   # services.xserver.displayManager.emptty.enable = true;
   # services.xserver.displayManager.ly.enable = true;
  
@@ -210,7 +241,26 @@
     description = "username";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      
+      mage
+      go
+
+      pstree # nice simply nice
+      btop # for btop
+      iperf # performance tester
+      iftop
+      # pktstat
+
+      sysstat # iostat
+      perf # perf
+      # opencode
+      opencode
+      rustup # rust toolchain
+      # go
+
+      lsof # open files from dir
+      # image viewer - just works
+      imv 
+
       # llm 
       # ollama
     #  thunderbird
@@ -286,7 +336,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    
+    # kernel debug symbols:
+    # pkgs.linuxKernel.kernels.linux_6_19.dev
+    claude-code
     # Thunar icons 
     adwaita-icon-theme  # Standard GNOME icons
     hicolor-icon-theme   # Required for many app icons
@@ -349,6 +401,8 @@
 #  wget
     cifs-utils # samba-mount
   ];
+# nice files browser, best works with kitty/ghostty
+programs.yazi.enable = true;
 
 # sway config
  programs.sway = {

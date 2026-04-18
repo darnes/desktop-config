@@ -12,7 +12,7 @@
     "editor.tabSize": 2,
     "typescript.preferences.importModuleSpecifier": "non-relative",
     "diffEditor.codeLens": true,
-    "geminicodeassist.inlineSuggestions.enableAuto": false,
+    "geminicodeassist.inlineSuggestions.enableAuto": true,
     "explorer.confirmDelete": false,
     "security.workspace.trust.untrustedFiles": "open",
     "[python]": {
@@ -27,11 +27,28 @@
     "workbench.editor.empty.hint": "hidden",
     "editor.smartHome": false,
     "github.copilot.enable": {
-        "*": false
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
     },
     "black-formatter.args": [
         "--line-length",
         "150"
     ],
     "editor.wordWrapColumn": 150,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "terminal.integrated.fontFamily": "JetBrainsMonoNL Nerd Font Mono",
+    "terminal.integrated.fontSize": 13,
+    "chat.tools.terminal.autoApprove": {
+        "go": true
+    },
+    "[go]": {
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "go.toolsManagement.autoUpdate": true,
 }

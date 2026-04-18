@@ -66,4 +66,14 @@
     "when": "editorTextFocus",
     "command": "cursorHomeSelect"
   },
+  {
+    "key": "ctrl+shift+enter",
+    "command": "geminicodeassist.generateCode",
+    "when": "authLoggedIn && config.geminicodeassist.enable && editorTextFocus && !inGeminiDiffView && !isInDiffEditor && !nextEditSessionAvailable"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "-geminicodeassist.generateCode",
+    "when": "authLoggedIn && config.geminicodeassist.enable && editorTextFocus && !inGeminiDiffView && !isInDiffEditor && !nextEditSessionAvailable"
+  },
 ]

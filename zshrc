@@ -14,8 +14,9 @@ setopt SHARE_HISTORY        # Shares history between multiple active Zsh session
 # keys are added manually in ~/.ssh/config
 #
 # eval "$(starship init bash)"
-
-eval "$(starship init zsh)"
+if [[ "$TERM" != "dumb" ]]; then
+  eval "$(starship init zsh)"
+fi
 
 plugins=( zsh-history-substring-search ) # up-line-or-beginning-search down-line-or-beginning-search)
 
