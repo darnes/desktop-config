@@ -18,6 +18,9 @@ cp -r ~/.config/xremap ./
 
 cp ~/.config/starship.toml ./
 
+# grc, primarly to colorize the output of go test
+cp -r ~/.grc/* ./.grc
+
 # code
 
 cp ~/.config/Code/User/settings.json ./code/

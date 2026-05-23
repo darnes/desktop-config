@@ -241,6 +241,7 @@
     description = "username";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
+      grc # cli text coloriser - makes go test output readable
       mage
       go
 
