@@ -20,6 +20,8 @@ fi
 
 plugins=( zsh-history-substring-search ) # up-line-or-beginning-search down-line-or-beginning-search)
 
+# grc alias
+alias gt='grc go test ./... -v'
 # alias current_branch='git rev-parse --abbrev-ref HEAD'
 # alias git_current_branch='current_branch'
 # alias ggp='git push origin $(current_branch)'
