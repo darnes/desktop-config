@@ -30,7 +30,8 @@
         "*": true,
         "plaintext": false,
         "markdown": false,
-        "scminput": false
+        "scminput": false,
+        "python": false
     },
     "black-formatter.args": [
         "--line-length",
@@ -51,4 +52,6 @@
         }
     },
     "go.toolsManagement.autoUpdate": true,
+    "makefile.configureOnOpen": false,
+    "git.openRepositoryInParentFolders": "never",
 }

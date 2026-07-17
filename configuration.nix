@@ -70,10 +70,11 @@
   #  enable = true;
   # };
   # Define time delay for hibernation
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-    SuspendState=mem
-  '';
+  # unstable config, might be better to switch to systemd.sleep.settings.Sleep 
+  # systemd.sleep.extraConfig = ''
+  #  HibernateDelaySec=30m
+  #  SuspendState=mem
+  #'';
 
   # end of hibernation setup
   services.hardware.bolt.enable = true;
@@ -288,7 +289,7 @@
       libgcc
       gnumake
       cmake
-      extra-cmake-modules
+      # extra-cmake-modules
 
       # clang 
       # cl
@@ -332,14 +333,25 @@
   # screen recorder
   programs.gpu-screen-recorder.enable = true;
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "docker-28.5.2"
+    ];
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # kernel debug symbols:
     # pkgs.linuxKernel.kernels.linux_6_19.dev
-    claude-code
+    # codex # yah, i know
+    # claude-code
+    # gemini-cli
+    antigravity 
+    gnupg # encryption
+    # can be top-level thunar
+    # code-cursor-fhs
+    code-cursor
     # Thunar icons 
     adwaita-icon-theme  # Standard GNOME icons
     hicolor-icon-theme   # Required for many app icons
@@ -371,7 +383,8 @@
     hyprlock
     mongosh # not installed yet
     ly
-    pciutils
+    pciutils 
+    # can be top-level thunar
     xfce.thunar
     killall
     htop

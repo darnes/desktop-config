@@ -1,4 +1,11 @@
 
+# Skip prompt/plugins in Cursor — keep a plain shell for IDE/agent work
+if [[ -n "$CURSOR_AGENT" || "$TERM_PROGRAM" == "vscode" ]]; then
+  export EDITOR=nvim
+  return
+fi
+# end of skip for cursor
+
 export EDITOR=nvim
 # set -o vi
 
